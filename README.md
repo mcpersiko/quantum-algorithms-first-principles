@@ -61,7 +61,13 @@ take seconds.
 
 The last library in the `requirements.txt` file, `pyscf`, is not pre-built for macOS arm64 (Apple Silicon), so pip compiles it from source.
 
-For arm64, run this installation for compilation to work:
+Make sure you have XCode Command Line Tools installed.  Enter this into Terminal:
+
+```
+xcode-select --install
+```
+
+Run this installation for compilation to work:
 
 ```
 CMAKE_CONFIGURE_ARGS="-DENABLE_XCFUN=OFF" pip install -r requirements.txt
