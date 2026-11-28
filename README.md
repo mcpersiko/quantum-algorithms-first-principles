@@ -57,10 +57,33 @@ SciPy 1.18 on Python 3.13. Everything runs on a laptop with the Aer simulator; n
 account is needed. The longest notebook (QSVT linear solver) takes about a minute, most
 take seconds.
 
+### Installation Note for Apple Silicon Macs
+
+The last library in the `requirements.txt` file, `pyscf`, is not pre-built for macOS arm64 (Apple Silicon), so pip compiles it from source.
+
+For arm64, run this installation for compilation to work:
+
+```
+CMAKE_CONFIGURE_ARGS="-DENABLE_XCFUN=OFF" pip install -r requirements.txt
+```
+
+The compile takes about ten minutes on an Apple M1 Pro, where this was tested.
+
+
 ## Errata
 
 Corrections to the printed book are listed in [ERRATA.md](ERRATA.md). Please report
 anything you find through a GitHub issue.
+
+### PySCF on Apple Silicon Errata
+
+The PySCF 2.15.1 source release is missing the
+file `pyscf/lib/libxcfun.patch`, and the build stops with
+`can't open patch '.../pyscf/lib/libxcfun.patch': No such file or directory`.
+Build it with the optional XCFun library turned off:
+
+XCFun only adds extra exchange-correlation functionals for DFT; the Chapter 8 notebook
+uses only PySCF's integrals, Hartree–Fock and FCI, which build normally. 
 
 ## License
 
